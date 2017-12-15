@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
@@ -54,7 +54,7 @@ class Popup extends Control
      * @param $path
      * @return Popup
      */
-    public function setTemplatePath($path)
+    public function setTemplatePath($path): self
     {
         $this->templatePath = $path;
         return $this;
@@ -67,7 +67,7 @@ class Popup extends Control
      * @param $name
      * @return Form
      */
-    protected function createComponentForm($name)
+    protected function createComponentForm($name): Form
     {
         $form = new Form($this, $name);
         $form->setTranslator($this->translator);
