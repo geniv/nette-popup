@@ -1,7 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
 use Nette\Application\UI\Control;
-use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 
 
@@ -12,39 +11,28 @@ use Nette\Localization\ITranslator;
  */
 class Popup extends Control
 {
-    /** @var string template path */
-    private $templatePath;
     /** @var ITranslator */
     private $translator = null;
+    /** @var string template path */
+    private $templatePath;
     /** @var string */
-    private $expireCookie = '2 weeks';
-    /** @var callback method */
-    public $onSuccess;
+    private $cookieName = 'popup-cookies';
+    /** @var string */
+    private $cookieExpire = '+10 year';
 
 
     /**
      * Popup constructor.
      *
-     * @param null             $expireCookie
      * @param ITranslator|null $translator
      */
-    public function __construct($expireCookie = null, ITranslator $translator = null)
+    public function __construct(ITranslator $translator = null)
     {
         parent::__construct();
 
-        if ($expireCookie) {
-            $this->expireCookie = $expireCookie;
-        }
         $this->translator = $translator;
 
         $this->templatePath = __DIR__ . '/Popup.latte';  // implicit path
-
-        // default onSuccess
-        if (!$this->onSuccess) {
-            $this->onSuccess[] = function () {
-                $this->redirect('this');
-            };
-        }
     }
 
 
@@ -52,9 +40,9 @@ class Popup extends Control
      * Set template path.
      *
      * @param $path
-     * @return Popup
+     * @return $this
      */
-    public function setTemplatePath($path): self
+    public function setTemplatePath($path)
     {
         $this->templatePath = $path;
         return $this;
@@ -62,21 +50,41 @@ class Popup extends Control
 
 
     /**
-     * Create component form.
+     * Set cookie name.
      *
      * @param $name
-     * @return Form
+     * @return $this
      */
-    protected function createComponentForm($name): Form
+    public function setCookieName($name)
     {
-        $form = new Form($this, $name);
-        $form->setTranslator($this->translator);
-        $form->addSubmit('send', 'popup-form-send');
-        $form->onSuccess[] = function ($form, $values) {
-            $this->presenter->getHttpResponse()->setCookie('popupShow', 0, $this->expireCookie);
-            $this->onSuccess();
-        };
-        return $form;
+        $this->cookieName = $name;
+        return $this;
+    }
+
+
+    /**
+     * Set cookie expire.
+     *
+     * @param $time
+     * @return $this
+     */
+    public function setCookieExpire($time)
+    {
+        $this->cookieExpire = $time;
+        return $this;
+    }
+
+
+    /**
+     * Handle hide block.
+     */
+    public function handleHideBlock()
+    {
+        $this->presenter->getHttpResponse()->setCookie($this->cookieName, 1, $this->cookieExpire);
+
+        if ($this->presenter->isAjax()) {
+            $this->redrawControl('snippetBlock');
+        }
     }
 
 
@@ -87,7 +95,7 @@ class Popup extends Control
     {
         $template = $this->getTemplate();
 
-        $template->popupShow = $this->presenter->getHttpRequest()->getCookie('popupShow', 1);
+        $template->showBlock = $this->presenter->getHttpRequest()->getCookie($this->cookieName, 0);
 
         $template->setTranslator($this->translator);
         $template->setFile($this->templatePath);

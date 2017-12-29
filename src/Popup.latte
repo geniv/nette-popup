@@ -1,12 +1,10 @@
-<div n:if="$popupShow">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-
-            {_'popup-modal-content'}
-
-            {form form}
-                {input send}
-            {/form}
+{snippet snippetBlock}
+    <div n:if="!$showBlock">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                {_'popup-content'}
+                <a n:href="HideBlock!" class="ajax btn btn-success">{_'popup-button'}</a>
+            </div>
         </div>
     </div>
-</div>
+{/snippet}
