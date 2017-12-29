@@ -23,13 +23,6 @@ neon configure:
 ```neon
 services:
     - Popup
-#    - Popup(1 week)
-```
-
-callback:
----------
-```php
-onSuccess()
 ```
 
 usage:
@@ -37,7 +30,8 @@ usage:
 protected function createComponentPopup(Popup $popup): Popup
 {
     //$popup->setTemplatePath();
-    //$popup->onSuccess[] = function(){};
+    //$popup->setCookieName();
+    //$popup->setCookieExpire();
     return $popup;
 }
 ```
