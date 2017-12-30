@@ -18,7 +18,7 @@ class Popup extends Control
 //    /** @var string style path */
 //    private $stylePath;
     /** @var string */
-    private $cookieName = 'popup-cookie';
+    private $cookieName = 'cookie-popup';
     /** @var string */
     private $cookieExpire = '+10 years';
     /** @var int */
