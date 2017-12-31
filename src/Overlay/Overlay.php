@@ -59,4 +59,10 @@ class Overlay extends Control
         $template->setFile($this->templatePath);
         $template->render();
     }
+
+
+    public function begin() { }
+
+
+    public function end() { }
 }
