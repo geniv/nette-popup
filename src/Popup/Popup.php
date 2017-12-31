@@ -15,8 +15,6 @@ class Popup extends Control
     private $translator = null;
     /** @var string template path */
     private $templatePath;
-//    /** @var string style path */
-//    private $stylePath;
     /** @var string */
     private $cookieName = 'cookie-popup';
     /** @var string */
@@ -37,7 +35,6 @@ class Popup extends Control
         $this->translator = $translator;
 
         $this->templatePath = __DIR__ . '/Popup.latte';  // implicit path
-//        $this->stylePath = __DIR__ . '/Popup.scss'; // implicit path
     }
 
 

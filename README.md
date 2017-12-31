@@ -1,5 +1,6 @@
 Nette popup
 ===========
+popup, overlay
 
 Installation
 ------------
