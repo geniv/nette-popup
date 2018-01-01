@@ -31,7 +31,7 @@ usage:
 ```php
 protected function createComponentPopup(Popup $popup): Popup
 {
-    //$popup->setTemplatePath();
+    //$popup->setTemplatePath('');
     //$popup->setCookieName();
     //$popup->setCookieExpire();
     return $popup;
@@ -39,7 +39,7 @@ protected function createComponentPopup(Popup $popup): Popup
 
 protected function createComponentOverlay(Overlay $overlay): Overlay
 {
-    //$popup->setTemplatePath();
+    //$overlay->setTemplatePath('','');
     return $overlay;
 }
 ```
@@ -47,5 +47,8 @@ protected function createComponentOverlay(Overlay $overlay): Overlay
 usage:
 ```latte
 {control popup}
-{control overlay}
+
+{control overlay:begin}
+content
+{control overlay:end}
 ```
