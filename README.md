@@ -1,6 +1,6 @@
 Nette popup
 ===========
-popup, overlay
+popup & overlay
 
 Installation
 ------------
@@ -24,6 +24,7 @@ neon configure:
 ```neon
 services:
     - Popup
+    - Overlay
 ```
 
 usage:
@@ -35,9 +36,16 @@ protected function createComponentPopup(Popup $popup): Popup
     //$popup->setCookieExpire();
     return $popup;
 }
+
+protected function createComponentOverlay(Overlay $overlay): Overlay
+{
+    //$popup->setTemplatePath();
+    return $overlay;
+}
 ```
 
 usage:
 ```latte
 {control popup}
+{control overlay}
 ```

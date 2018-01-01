@@ -58,12 +58,12 @@
     z-index: 7100; // hloupa pojistka
     text-align: left;
     vertical-align: middle;
-    font-size: rem(16);
+    font-size: 16px;
     background-color: $white;
     h3 {
       padding-top: 0;
       padding-bottom: 5px;
-      font-size: rem(26);
+      font-size: 26px;
       font-weight: 700;
       line-height: 1.08;
       letter-spacing: normal;
@@ -71,7 +71,7 @@
     }
     p {
       padding-bottom: 20px;
-      font-size: rem(16);
+      font-size: 16px;
       line-height: 1.65;
       letter-spacing: -0.2px;
     }
