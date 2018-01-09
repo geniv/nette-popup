@@ -1,123 +1,123 @@
 @keyframes nette-popup-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes nette-popup-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 .nette-popup {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 7000;
-  background-color: rgba($black, 0.5);
-  text-align: center;
-  font-size: 0;
-  &:before {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    width: 0;
-    height: 100%;
-  }
-  &.on {
-    display: block;
-    opacity: 0;
-    animation: nette-popup-in 200ms cubic-bezier(0.4, 0, 1, 1) 0s 1 forwards;
-    overflow-y: auto;
-  }
-  &.out {
-    display: block;
-    opacity: 1;
-    animation: nette-popup-out 200ms cubic-bezier(0.4, 0, 1, 1) 0s 1 forwards;
-    &.end {
-      display: none;
-    }
-  }
-  &-inner {
-    display: inline-block;
-    width: 100%;
-    max-width: 510px;
-    margin: 50px 0;
-    padding: 60px 60px 40px 65px;
-    position: relative;
-    z-index: 7100; // hloupa pojistka
-    text-align: left;
-    vertical-align: middle;
-    font-size: 16px;
-    background-color: $white;
-    h3 {
-      padding-top: 0;
-      padding-bottom: 5px;
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: normal;
-      color: $black;
-    }
-    p {
-      padding-bottom: 20px;
-      font-size: 16px;
-      line-height: 1.65;
-      letter-spacing: -0.2px;
-    }
-  }
-  &-backdrop {
-    display: block;
+    display: none;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 7050;
-    &:after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 7060;
+    z-index: 1000;
+    background-color: rgba($black, 0.5);
+    text-align: center;
+    font-size: 0;
+    &:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 0;
+        height: 100%;
     }
-  }
-  &-close {
-    display: block;
-    width: 33px;
-    height: 33px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 7300;
-    svg {
-      fill: $black;
-      fill-opacity: 0.38;
+    &.on {
+        display: block;
+        opacity: 0;
+        animation: nette-popup-in 200ms cubic-bezier(0.4, 0, 1, 1) 0s 1 forwards;
+        overflow-y: auto;
     }
-    &:hover {
-      svg {
-        fill: $black;
-        fill-opacity: 1;
-      }
+    &.out {
+        display: block;
+        opacity: 1;
+        animation: nette-popup-out 200ms cubic-bezier(0.4, 0, 1, 1) 0s 1 forwards;
+        &.end {
+            display: none;
+        }
     }
-  }
+    &-inner {
+        display: inline-block;
+        width: 100%;
+        max-width: 510px;
+        margin: 50px 0;
+        padding: 60px 60px 40px 65px;
+        position: relative;
+        z-index: 1100;
+        text-align: left;
+        vertical-align: middle;
+        font-size: 16px;
+        background-color: $white;
+        h3 {
+            padding-top: 0;
+            padding-bottom: 5px;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: normal;
+            color: $black;
+        }
+        p {
+            padding-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.65;
+            letter-spacing: -0.2px;
+        }
+    }
+    &-backdrop {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1050;
+        &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1060;
+        }
+    }
+    &-close {
+        display: block;
+        width: 33px;
+        height: 33px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1300;
+        svg {
+            fill: $black;
+            fill-opacity: 0.38;
+        }
+        &:hover {
+            svg {
+                fill: $black;
+                fill-opacity: 1;
+            }
+        }
+    }
 }
 
 body {
-  &.nette-popup-on {
-    overflow: hidden;
-  }
+    &.nette-popup-on {
+        overflow: hidden;
+    }
 }
