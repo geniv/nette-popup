@@ -8,6 +8,10 @@ $nette-popup-out-bezier:          cubic-bezier(0.4, 0, 1, 1) !default;
 $nette-popup-backdrop-bg:         rgba($black, 0.5) !default;
 $nette-popup-inner-bg:            $white !default;
 
+$nette-popup-inner-max-width:     600px !default;
+$nette-popup-inner-margin:        50px 0 !default;
+$nette-popup-inner-padding:       40px !default;
+
 $nette-popup-z-wrap:              1000 !default;
 $nette-popup-z-inner:             1100 !default;
 $nette-popup-z-backdrop:          1050 !default;
@@ -74,9 +78,9 @@ $nette-popup-structure: (
             display: inline-block;
             width: 100%;
             @if index($nette-popup-structure, size-styles) {
-                max-width: 600px;
-                margin: 50px 0;
-                padding: 40px;
+                max-width: $nette-popup-inner-max-width;
+                margin: $nette-popup-inner-margin;
+                padding: $nette-popup-inner-padding;
             }
             position: relative;
             z-index: $nette-popup-z-inner;
