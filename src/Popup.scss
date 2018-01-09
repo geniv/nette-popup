@@ -1,123 +1,149 @@
-@keyframes nette-popup-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
-@keyframes nette-popup-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
+$nette-popup-on-speed:            200ms !default;
+$nette-popup-out-speed:           200ms !default;
 
-.nette-popup {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    background-color: rgba($black, 0.5);
-    text-align: center;
-    font-size: 0;
-    &:before {
-        content: "";
-        display: inline-block;
-        vertical-align: middle;
-        width: 0;
-        height: 100%;
-    }
-    &.on {
-        display: block;
-        opacity: 0;
-        animation: nette-popup-in 200ms cubic-bezier(0.4, 0, 1, 1) 0s 1 forwards;
-        overflow-y: auto;
-    }
-    &.out {
-        display: block;
-        opacity: 1;
-        animation: nette-popup-out 200ms cubic-bezier(0.4, 0, 1, 1) 0s 1 forwards;
-        &.end {
-            display: none;
+$nette-popup-on-bezier:           cubic-bezier(0.4, 0, 1, 1) !default;
+$nette-popup-out-bezier:          cubic-bezier(0.4, 0, 1, 1) !default;
+
+$nette-popup-backdrop-bg:         rgba($black, 0.5) !default;
+$nette-popup-inner-bg:            $white !default;
+
+$nette-popup-z-wrap:              1000 !default;
+$nette-popup-z-inner:             1100 !default;
+$nette-popup-z-backdrop:          1050 !default;
+$nette-popup-z-backdrop-after:    1060 !default;
+$nette-popup-z-close:             1200 !default;
+
+$nette-popup-structure: (
+    default,
+    content-styles,
+    size-styles,
+) !default;
+
+
+@if index($nette-popup-structure, default) {
+    @keyframes nette-popup-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
         }
     }
-    &-inner {
-        display: inline-block;
-        width: 100%;
-        max-width: 510px;
-        margin: 50px 0;
-        padding: 60px 60px 40px 65px;
-        position: relative;
-        z-index: 1100;
-        text-align: left;
-        vertical-align: middle;
-        font-size: 16px;
-        background-color: $white;
-        h3 {
-            padding-top: 0;
-            padding-bottom: 5px;
-            font-size: 26px;
-            font-weight: 700;
-            line-height: 1.08;
-            letter-spacing: normal;
-            color: $black;
+    @keyframes nette-popup-out {
+        from {
+            opacity: 1;
         }
-        p {
-            padding-bottom: 20px;
-            font-size: 16px;
-            line-height: 1.65;
-            letter-spacing: -0.2px;
+        to {
+            opacity: 0;
         }
     }
-    &-backdrop {
-        display: block;
+    .nette-popup {
+        display: none;
         width: 100%;
         height: 100%;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
-        z-index: 1050;
-        &:after {
+        z-index: $nette-popup-z-wrap;
+        background-color: $nette-popup-backdrop-bg;
+        text-align: center;
+        font-size: 0;
+        &:before {
             content: "";
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+        }
+        &.on {
+            display: block;
+            opacity: 0;
+            animation: nette-popup-in $nette-popup-on-speed $nette-popup-on-bezier 0s 1 forwards;
+            overflow-y: auto;
+        }
+        &.out {
+            display: block;
+            opacity: 1;
+            animation: nette-popup-out $nette-popup-out-speed $nette-popup-out-bezier 0s 1 forwards;
+            &.end {
+                display: none;
+            }
+        }
+        &-inner {
+            display: inline-block;
+            width: 100%;
+            @if index($nette-popup-structure, size-styles) {
+                max-width: 600px;
+                margin: 50px 0;
+                padding: 40px;
+            }
+            position: relative;
+            z-index: $nette-popup-z-inner;
+            text-align: left;
+            vertical-align: middle;
+            font-size: rem(16);
+            background-color: $nette-popup-inner-bg;
+            @if index($nette-popup-structure, content-styles) {
+                h3 {
+                    padding-top: 0;
+                    padding-bottom: 5px;
+                    font-size: rem(26);
+                    font-weight: 700;
+                    line-height: 1.08;
+                    letter-spacing: normal;
+                    color: $black;
+                }
+                p {
+                    padding-bottom: 20px;
+                    font-size: rem(16);
+                    line-height: 1.65;
+                    letter-spacing: -0.2px;
+                }
+            }
+        }
+        &-backdrop {
             display: block;
             width: 100%;
             height: 100%;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
-            z-index: 1060;
+            z-index: $nette-popup-z-backdrop;
+            &:after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: $nette-popup-z-backdrop-after;
+            }
         }
-    }
-    &-close {
-        display: block;
-        width: 33px;
-        height: 33px;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1300;
-        svg {
-            fill: $black;
-            fill-opacity: 0.38;
-        }
-        &:hover {
+        &-close {
+            display: block;
+            width: 33px;
+            height: 33px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: $nette-popup-z-close;
             svg {
                 fill: $black;
-                fill-opacity: 1;
+                fill-opacity: 0.38;
+            }
+            &:hover {
+                svg {
+                    fill: $black;
+                    fill-opacity: 1;
+                }
             }
         }
     }
-}
-
-body {
-    &.nette-popup-on {
-        overflow: hidden;
+    body {
+        &.nette-popup-on {
+            overflow: hidden;
+        }
     }
 }
