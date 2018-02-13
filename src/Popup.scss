@@ -1,27 +1,34 @@
+$nette-popup-on-speed:                  200ms !default;
+$nette-popup-out-speed:                 200ms !default;
 
-$nette-popup-on-speed:            200ms !default;
-$nette-popup-out-speed:           200ms !default;
+$nette-popup-on-bezier:                 cubic-bezier(0.4, 0, 1, 1) !default;
+$nette-popup-out-bezier:                cubic-bezier(0.4, 0, 1, 1) !default;
 
-$nette-popup-on-bezier:           cubic-bezier(0.4, 0, 1, 1) !default;
-$nette-popup-out-bezier:          cubic-bezier(0.4, 0, 1, 1) !default;
+$nette-popup-backdrop-bg:               rgba($black, 0.5) !default;
+$nette-popup-inner-bg:                  $white !default;
 
-$nette-popup-backdrop-bg:         rgba($black, 0.5) !default;
-$nette-popup-inner-bg:            $white !default;
+$nette-popup-inner-max-width:           600px !default;
+$nette-popup-inner-margin:              50px 0 !default;
+$nette-popup-inner-padding:             40px !default;
 
-$nette-popup-inner-max-width:     600px !default;
-$nette-popup-inner-margin:        50px 0 !default;
-$nette-popup-inner-padding:       40px !default;
+$nette-popup-close-width:               33px !default;
+$nette-popup-close-height:              33px !default;
+$nette-popup-close-top:                 20px !default;
+$nette-popup-close-right:               20px !default;
+$nette-popup-close-fill:                $black !default;
+$nette-popup-close-fill-hover:          $black !default;
+$nette-popup-close-fill-opacity:        0.38 !default;
+$nette-popup-close-fill-opacity-hover:  1 !default;
 
-$nette-popup-z-wrap:              1000 !default;
-$nette-popup-z-inner:             1100 !default;
-$nette-popup-z-backdrop:          1050 !default;
-$nette-popup-z-backdrop-after:    1060 !default;
-$nette-popup-z-close:             1200 !default;
+$nette-popup-z-wrap:                    1000 !default;
+$nette-popup-z-inner:                   1100 !default;
+$nette-popup-z-backdrop:                1050 !default;
+$nette-popup-z-backdrop-after:          1060 !default;
+$nette-popup-z-close:                   1200 !default;
 
 $nette-popup-structure: (
     default,
     content-styles,
-    size-styles,
 ) !default;
 
 
@@ -34,119 +41,99 @@ $nette-popup-structure: (
             opacity: 1;
         }
     }
-    @keyframes nette-popup-out {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
     .nette-popup {
-        display: none;
-        width: 100%;
-        height: 100%;
         position: fixed;
         top: 0;
         left: 0;
         z-index: $nette-popup-z-wrap;
-        background-color: $nette-popup-backdrop-bg;
-        text-align: center;
+        display: none;
+        width: 100%;
+        height: 100%;
         font-size: 0;
+        text-align: center;
+        background-color: $nette-popup-backdrop-bg;
         &:before {
-            content: "";
             display: inline-block;
-            vertical-align: middle;
             width: 0;
             height: 100%;
+            vertical-align: middle;
+            content: "";
         }
-        &.on {
+        &--on {
             display: block;
             opacity: 0;
-            animation: nette-popup-in $nette-popup-on-speed $nette-popup-on-bezier 0s 1 forwards;
             overflow-y: auto;
+            animation: nette-popup-in $nette-popup-on-speed $nette-popup-on-bezier 0s 1 forwards;
         }
-        &.out {
-            display: block;
-            opacity: 1;
-            animation: nette-popup-out $nette-popup-out-speed $nette-popup-out-bezier 0s 1 forwards;
-            &.end {
-                display: none;
-            }
-        }
-        &-inner {
-            display: inline-block;
-            width: 100%;
-            @if index($nette-popup-structure, size-styles) {
-                max-width: $nette-popup-inner-max-width;
-                margin: $nette-popup-inner-margin;
-                padding: $nette-popup-inner-padding;
-            }
+        &__inner {
             position: relative;
             z-index: $nette-popup-z-inner;
-            text-align: left;
+            display: inline-block;
+            width: 100%;
+            max-width: $nette-popup-inner-max-width;
+            margin: $nette-popup-inner-margin;
+            padding: $nette-popup-inner-padding;
             vertical-align: middle;
             font-size: rem(16);
+            text-align: left;
             background-color: $nette-popup-inner-bg;
             @if index($nette-popup-structure, content-styles) {
                 h3 {
-                    padding-top: 0;
-                    padding-bottom: 5px;
+                    margin-bottom: 20px;
                     font-size: rem(26);
                     font-weight: 700;
-                    line-height: 1.08;
-                    letter-spacing: normal;
+                    line-height: 1;
                     color: $black;
                 }
                 p {
-                    padding-bottom: 20px;
+                    margin-bottom: 20px;
                     font-size: rem(16);
                     line-height: 1.65;
-                    letter-spacing: -0.2px;
                 }
             }
         }
-        &-backdrop {
-            display: block;
-            width: 100%;
-            height: 100%;
+        &__backdrop {
             position: absolute;
             top: 0;
             left: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
             z-index: $nette-popup-z-backdrop;
             &:after {
-                content: "";
-                display: block;
-                width: 100%;
-                height: 100%;
                 position: fixed;
                 top: 0;
                 left: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
                 z-index: $nette-popup-z-backdrop-after;
+                content: "";
             }
         }
-        &-close {
-            display: block;
-            width: 33px;
-            height: 33px;
+        &__close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: $nette-popup-close-top;
+            right: $nette-popup-close-right;
             z-index: $nette-popup-z-close;
+            display: block;
+            width: $nette-popup-close-width;
+            height: $nette-popup-close-height;
             svg {
-                fill: $black;
-                fill-opacity: 0.38;
+                display: block;
+                fill: $nette-popup-close-fill;
+                fill-opacity: $nette-popup-close-fill-opacity;
             }
             &:hover {
                 svg {
-                    fill: $black;
-                    fill-opacity: 1;
+                    fill: $nette-popup-close-fill-hover;
+                    fill-opacity: $nette-popup-close-fill-opacity-hover;
                 }
             }
         }
     }
     body {
-        &.nette-popup-on {
+        &.nette-popup--shown {
             overflow: hidden;
         }
     }
