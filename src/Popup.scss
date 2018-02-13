@@ -121,6 +121,8 @@ $nette-popup-structure: (
             height: $nette-popup-close-height;
             svg {
                 display: block;
+                width: 100%;
+                height: auto;
                 fill: $nette-popup-close-fill;
                 fill-opacity: $nette-popup-close-fill-opacity;
             }
