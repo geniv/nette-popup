@@ -7,7 +7,7 @@ use Nette\Localization\ITranslator;
 /**
  * Class Popup
  *
- * @author  geniv
+ * @author  geniv, MartinFugess
  */
 class Popup extends Control
 {

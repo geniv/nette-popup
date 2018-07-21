@@ -29,7 +29,7 @@ usage:
 ```php
 protected function createComponentPopup(Popup $popup): Popup
 {
-    //$popup->setTemplatePath('');
+    //$popup->setTemplatePath();
     //$popup->setCookieName();
     //$popup->setCookieExpire();
     return $popup;
