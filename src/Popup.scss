@@ -29,6 +29,7 @@ $nette-popup-z-close:                   1200 !default;
 $nette-popup-structure: (
     default,
     content-styles,
+    overflow-fix
 ) !default;
 
 
@@ -134,9 +135,11 @@ $nette-popup-structure: (
             }
         }
     }
-    body {
-        &.nette-popup--shown {
-            overflow: hidden;
+    @if index($nette-popup-structure, overflow-fix) {
+        body {
+            &.nette-popup--shown {
+                overflow: hidden;
+            }
         }
     }
 }
