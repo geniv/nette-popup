@@ -1,2 +1,2 @@
-nette-popup-title: popup titulek
-nette-popup-content: popup obsah
+nette-popup#title: popup titulek
+nette-popup#content: popup obsah
