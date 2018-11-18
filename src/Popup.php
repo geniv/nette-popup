@@ -1,5 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
+use GeneralForm\ITemplatePath;
 use Nette\Application\UI\Control;
 use Nette\Localization\ITranslator;
 
@@ -9,7 +10,7 @@ use Nette\Localization\ITranslator;
  *
  * @author  geniv, MartinFugess
  */
-class Popup extends Control
+class Popup extends Control implements ITemplatePath
 {
     /** @var ITranslator */
     private $translator = null;
@@ -41,39 +42,33 @@ class Popup extends Control
     /**
      * Set template path.
      *
-     * @param $path
-     * @return $this
+     * @param string $path
      */
-    public function setTemplatePath($path)
+    public function setTemplatePath(string $path)
     {
         $this->templatePath = $path;
-        return $this;
     }
 
 
     /**
      * Set cookie name.
      *
-     * @param $name
-     * @return $this
+     * @param string $name
      */
-    public function setCookieName($name)
+    public function setCookieName(string $name)
     {
         $this->cookieName = $name;
-        return $this;
     }
 
 
     /**
      * Set cookie expire.
      *
-     * @param $time
-     * @return $this
+     * @param string $time
      */
-    public function setCookieExpire($time)
+    public function setCookieExpire(string $time)
     {
         $this->cookieExpire = $time;
-        return $this;
     }
 
 

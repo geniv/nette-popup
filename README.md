@@ -1,5 +1,5 @@
-Nette popup
-===========
+Popup
+=====
 
 Installation
 ------------
@@ -13,8 +13,9 @@ or
 
 require:
 ```json
-"php": ">=5.6.0",
-"nette/nette": ">=2.4.0"
+"php": ">=7.0.0",
+"nette/nette": ">=2.4.0",
+"geniv/nette-general-form": ">=1.0.0"
 ```
 
 Include in application
@@ -29,9 +30,9 @@ usage:
 ```php
 protected function createComponentPopup(Popup $popup): Popup
 {
-    //$popup->setTemplatePath();
-    //$popup->setCookieName();
-    //$popup->setCookieExpire();
+    //$popup->setTemplatePath(__DIR__ . '/templates/popup.latte');
+    //$popup->setCookieName('cookie-popup');
+    //$popup->setCookieExpire('+10 years');
     return $popup;
 }
 ```
