@@ -10,7 +10,7 @@ use Nette\Localization\ITranslator;
  *
  * @author  geniv, MartinFugess
  */
-class Popup extends Control implements ITemplatePath
+class Popup extends Control implements IPopup, ITemplatePath
 {
     /** @var ITranslator */
     private $translator = null;

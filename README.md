@@ -8,14 +8,14 @@ $ composer require geniv/nette-popup
 ```
 or
 ```json
-"geniv/nette-popup": ">=1.0.0"
+"geniv/nette-popup": "^2.0"
 ```
 
 require:
 ```json
-"php": ">=7.0.0",
-"nette/nette": ">=2.4.0",
-"geniv/nette-general-form": ">=1.0.0"
+"php": ">=7.0",
+"nette/nette": ">=2.4",
+"geniv/nette-general-form": ">=1.0"
 ```
 
 Include in application
@@ -28,7 +28,7 @@ services:
 
 usage:
 ```php
-protected function createComponentPopup(Popup $popup): Popup
+protected function createComponentPopup(IPopup $popup): IPopup
 {
     //$popup->setTemplatePath(__DIR__ . '/templates/popup.latte');
     //$popup->setCookieName('cookie-popup');
