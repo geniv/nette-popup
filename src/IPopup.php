@@ -1,12 +1,14 @@
 <?php declare(strict_types=1);
 
+use GeneralForm\ITemplatePath;
+
 
 /**
  * Interface IPopup
  *
  * @author  geniv
  */
-interface IPopup
+interface IPopup extends ITemplatePath
 {
 
     /**
