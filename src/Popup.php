@@ -10,11 +10,11 @@ use Nette\Localization\ITranslator;
  *
  * @author  geniv, MartinFugess
  */
-class Popup extends Control implements ITemplatePath
+class Popup extends Control implements IPopup, ITemplatePath
 {
     /** @var ITranslator */
     private $translator = null;
-    /** @var string template path */
+    /** @var string */
     private $templatePath;
     /** @var string */
     private $cookieName = 'cookie-popup';
