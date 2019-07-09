@@ -8,6 +8,8 @@ use Nette\Localization\ITranslator;
  * Class Popup
  *
  * @author  geniv, MartinFugess
+ * @method onShowBlock()
+ * @method onHideBlock()
  */
 class Popup extends Control implements IPopup
 {
@@ -19,8 +21,16 @@ class Popup extends Control implements IPopup
     private $cookieName = 'cookie-popup';
     /** @var string */
     private $cookieExpire = '+10 years';
-    /** @var int */
-    private $showBlock = 0;
+    /** @var bool */
+    private $autoOpen = false;
+    /** @var bool */
+    private $enableSaveCookie = false;
+    /** @var bool */
+    private $showBlock = false;
+    /** @var array */
+    private $variableTemplate = [];
+    /** @var callable */
+    public $onShowBlock, $onHideBlock;
 
 
     /**
@@ -50,6 +60,28 @@ class Popup extends Control implements IPopup
 
 
     /**
+     * Set auto open.
+     *
+     * @param bool $state
+     */
+    public function setAutoOpen(bool $state)
+    {
+        $this->autoOpen = $state;
+    }
+
+
+    /**
+     * Enable save cookie.
+     *
+     * @param bool $state
+     */
+    public function enableSaveCookie(bool $state)
+    {
+        $this->enableSaveCookie = $state;
+    }
+
+
+    /**
      * Set cookie name.
      *
      * @param string $name
@@ -72,20 +104,78 @@ class Popup extends Control implements IPopup
 
 
     /**
-     * Handle hide block.
+     * Set cookie.
      *
-     * @throws \Nette\Application\AbortException
+     * @param bool $state
+     * @internal
+     */
+    private function setCookie(bool $state)
+    {
+        if ($this->enableSaveCookie) {
+            $this->presenter->getHttpResponse()->setCookie($this->cookieName, $state, $this->cookieExpire);
+        }
+    }
+
+
+    /**
+     * Handle show block.
+     */
+    public function handleShowBlock()
+    {
+        $this->show();
+    }
+
+
+    /**
+     * Handle hide block.
      */
     public function handleHideBlock()
     {
-        $this->presenter->getHttpResponse()->setCookie($this->cookieName, 1, $this->cookieExpire);
-        $this->showBlock = 1;
+        $this->hide();
+    }
+
+
+    /**
+     * Show.
+     */
+    public function show()
+    {
+        $this->showBlock = true;
+        $this->setCookie($this->showBlock);
 
         if ($this->presenter->isAjax()) {
             $this->redrawControl('snippetBlock');
-        } else {
-            $this->redirect('this');
         }
+
+        $this->onShowBlock();
+    }
+
+
+    /**
+     * Hide.
+     */
+    public function hide()
+    {
+        $this->showBlock = false;
+        $this->setCookie($this->showBlock);
+
+        if ($this->presenter->isAjax()) {
+            $this->redrawControl('snippetBlock');
+        }
+
+        $this->onHideBlock();
+    }
+
+
+    /**
+     * Add variable template.
+     *
+     * @param string $name
+     * @param        $values
+     */
+    public function addVariableTemplate(string $name, $values)
+    {
+        $this->variableTemplate[$name] = $values;
     }
 
 
@@ -94,11 +184,25 @@ class Popup extends Control implements IPopup
      */
     public function render()
     {
+        /** @var stdClass $template */
         $template = $this->getTemplate();
-        $template->showBlock = $this->presenter->getHttpRequest()->getCookie($this->cookieName, $this->showBlock);
 
+        if ($this->enableSaveCookie) {
+            $template->showBlock = $this->presenter->getHttpRequest()->getCookie($this->cookieName, $this->autoOpen ? true : $this->showBlock);
+        } else {
+            $template->showBlock = $this->showBlock;
+        }
+
+        // add user defined variable
+        foreach ($this->variableTemplate as $name => $value) {
+            $template->$name = $value;
+        }
+
+        /* @noinspection PhpUndefinedMethodInspection */
         $template->setTranslator($this->translator);
+        /* @noinspection PhpUndefinedMethodInspection */
         $template->setFile($this->templatePath);
+        /* @noinspection PhpUndefinedMethodInspection */
         $template->render();
     }
 }

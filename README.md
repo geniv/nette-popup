@@ -8,7 +8,7 @@ $ composer require geniv/nette-popup
 ```
 or
 ```json
-"geniv/nette-popup": "^2.0"
+"geniv/nette-popup": "^2.2"
 ```
 
 require:
@@ -33,6 +33,11 @@ protected function createComponentPopup(IPopup $popup): IPopup
     //$popup->setTemplatePath(__DIR__ . '/templates/popup.latte');
     //$popup->setCookieName('cookie-popup');
     //$popup->setCookieExpire('+10 years');
+    //$popup->enableSaveCookie(false);
+    //$popup->setAutoOpen(false);
+    //$popup->addVariableTemplate(['a' => 'b']);
+    //$popup->onShowBlock[] = function() {};
+    //$popup->onHideBlock[] = function() {};
     return $popup;
 }
 ```
@@ -40,4 +45,9 @@ protected function createComponentPopup(IPopup $popup): IPopup
 usage:
 ```latte
 {control popup}
+```
+
+```php
+$this['popup']->show();
+$this['popup']->hide();
 ```
