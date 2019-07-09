@@ -14,6 +14,8 @@ interface IPopup extends ITemplatePath
     /**
      * Set cookie name.
      *
+     * default: cookie-popup
+     *
      * @param string $name
      */
     public function setCookieName(string $name);
@@ -22,13 +24,52 @@ interface IPopup extends ITemplatePath
     /**
      * Set cookie expire.
      *
+     * default: +10 years
+     *
      * @param string $time
      */
     public function setCookieExpire(string $time);
 
 
     /**
-     * Handle hide block.
+     * Set auto open.
+     *
+     * default: false
+     *
+     * @param bool $state
      */
-    public function handleHideBlock();
+    public function setAutoOpen(bool $state);
+
+
+    /**
+     * Enable save cookie.
+     *
+     * default: false
+     *
+     * @param bool $state
+     */
+    public function enableSaveCookie(bool $state);
+
+
+    /**
+     * Show.
+     */
+    public function show();
+
+
+    /**
+     * Hide.
+     *
+     * default: hide
+     */
+    public function hide();
+
+
+    /**
+     * Add variable template.
+     *
+     * @param string $name
+     * @param        $values
+     */
+    public function addVariableTemplate(string $name, $values);
 }
