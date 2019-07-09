@@ -8,7 +8,7 @@ $ composer require geniv/nette-popup
 ```
 or
 ```json
-"geniv/nette-popup": "^2.1"
+"geniv/nette-popup": "^2.2"
 ```
 
 require:
