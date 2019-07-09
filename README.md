@@ -36,6 +36,8 @@ protected function createComponentPopup(IPopup $popup): IPopup
     //$popup->enableSaveCookie(false);
     //$popup->setAutoOpen(false);
     //$popup->addVariableTemplate(['a' => 'b']);
+    //$popup->onShowBlock[] = function() {};
+    //$popup->onHideBlock[] = function() {};
     return $popup;
 }
 ```

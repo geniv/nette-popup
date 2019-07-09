@@ -8,6 +8,8 @@ use Nette\Localization\ITranslator;
  * Class Popup
  *
  * @author  geniv, MartinFugess
+ * @method onShowBlock()
+ * @method onHideBlock()
  */
 class Popup extends Control implements IPopup
 {
@@ -27,6 +29,8 @@ class Popup extends Control implements IPopup
     private $showBlock = false;
     /** @var array */
     private $variableTemplate = [];
+    /** @var callable */
+    public $onShowBlock, $onHideBlock;
 
 
     /**
@@ -103,6 +107,7 @@ class Popup extends Control implements IPopup
      * Set cookie.
      *
      * @param bool $state
+     * @internal
      */
     private function setCookie(bool $state)
     {
@@ -141,6 +146,8 @@ class Popup extends Control implements IPopup
         if ($this->presenter->isAjax()) {
             $this->redrawControl('snippetBlock');
         }
+
+        $this->onShowBlock();
     }
 
 
@@ -155,6 +162,8 @@ class Popup extends Control implements IPopup
         if ($this->presenter->isAjax()) {
             $this->redrawControl('snippetBlock');
         }
+
+        $this->onHideBlock();
     }
 
 
@@ -189,8 +198,11 @@ class Popup extends Control implements IPopup
             $template->$name = $value;
         }
 
+        /* @noinspection PhpUndefinedMethodInspection */
         $template->setTranslator($this->translator);
+        /* @noinspection PhpUndefinedMethodInspection */
         $template->setFile($this->templatePath);
+        /* @noinspection PhpUndefinedMethodInspection */
         $template->render();
     }
 }
